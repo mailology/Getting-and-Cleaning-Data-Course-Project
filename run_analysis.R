@@ -94,7 +94,7 @@ Data <- cbind(dataFeatures, dataCombine)
 
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement
 # a. Subset Name of Features by measurements on the mean and standard deviation
-# i.e taken Names of Features with ¡§mean()¡¨ or ¡§std()¡¨
+# i.e taken Names of Features with Â¡Â§mean()Â¡Â¨ or Â¡Â§std()Â¡Â¨
 
 subdataFeaturesNames<-dataFeaturesNames$V2[grep("mean\\(\\)|std\\(\\)", dataFeaturesNames$V2)]
 
@@ -105,7 +105,7 @@ Data<-subset(Data,select=selectedNames)
 
 
 # 3. Uses descriptive activity names to name the activities in the data set
-# a. Read descriptive activity names from ¡§activity_labels.txt¡¨
+# a. Read descriptive activity names from Â¡Â§activity_labels.txtÂ¡Â¨
 
 activityLabels <- read.table(file.path(path, "activity_labels.txt"),header = FALSE)
 
@@ -133,6 +133,9 @@ names(Data)<-gsub("Acc", "Accelerometer", names(Data))
 names(Data)<-gsub("Gyro", "Gyroscope", names(Data))
 names(Data)<-gsub("Mag", "Magnitude", names(Data))
 names(Data)<-gsub("BodyBody", "Body", names(Data))
+names(Data)<-gsub("-mean\\(\\)", "Mean", names(Data))
+names(Data) <- gsub("-std\\(\\)", "Standarddeviation", names(Data))
+names(Data) <- gsub("-(X|Y|Z)", "\\1", names(Data))
 
 
 # 5. Creates a second,independent tidy data set and ouput it
